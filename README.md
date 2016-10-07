@@ -2,5 +2,11 @@
 
 Projet sur la raspBerry pour faire la reconnaissance de visage depuis une caméra 
 
-Application Android : https://github.com/nizarAbak-kali/AndroidFaceCamRecognition
-Server NodeJs : https://github.com/nizarAbak-kali/IntelligentCamNodeJsServer
+__Application Android__ : https://github.com/nizarAbak-kali/AndroidFaceCamRecognition
+
+__Server NodeJs__ : https://github.com/nizarAbak-kali/IntelligentCamNodeJsServer
+
+### Lib à installer :
+
+	* OpenCV2 ou 3
+	* Python 2.7
