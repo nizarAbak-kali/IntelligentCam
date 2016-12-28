@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="02710bc0-461b-48d5-a26c-a05be515f4c7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main.cpp" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/FaceDetector.iml" afterPath="$PROJECT_DIR$/.idea/FaceDetector.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="02710bc0-461b-48d5-a26c-a05be515f4c7" name="Default" comment="mise a jour du projet :&#10;&#10;- ajout de la reconnaissance de visage &#10;- ajout de l'envoie de la detection vers un base de donné temps réels&#10;">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/haarcascade_eye.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <ignored path="FaceDetector.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,10 +30,10 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-412">
+            <state relative-caret-position="-196">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="e#49#76#0" expanded="true" />
+                <element signature="e#49#60#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -70,8 +65,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -401,6 +396,14 @@
       <option name="presentableId" value="Default" />
       <updated>1475830938620</updated>
     </task>
+    <task id="LOCAL-00001" summary="mise a jour du projet :&#10;&#10;- ajout de la reconnaissance de visage &#10;- ajout de l'envoie de la detection vers un base de donné temps réels&#10;">
+      <created>1482947297525</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1482947297525</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -414,9 +417,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1600" y="24" width="1280" height="1000" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29092383" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29092383" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -447,6 +450,14 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <MESSAGE value="mise a jour du projet :&#10;&#10;- ajout de la reconnaissance de visage &#10;- ajout de l'envoie de la detection vers un base de donné temps réels&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="mise a jour du projet :&#10;&#10;- ajout de la reconnaissance de visage &#10;- ajout de l'envoie de la detection vers un base de donné temps réels&#10;" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
@@ -457,7 +468,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -467,7 +478,7 @@
         <state relative-caret-position="1332">
           <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -477,7 +488,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -487,7 +498,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -497,7 +508,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -507,7 +518,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -517,7 +528,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -527,7 +538,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -537,7 +548,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -547,7 +558,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -557,7 +568,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -595,10 +606,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-412">
+        <state relative-caret-position="-196">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#49#76#0" expanded="true" />
+            <element signature="e#49#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
