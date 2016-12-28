@@ -1,37 +1,90 @@
+"""
+https://intelligent-cam.firebaseio.com/
+"""
+
+import time
+
 import cv2
-import sys
+from firebase import firebase
 
-cascPath = 'haarcascade_frontalface_default.xml'
-faceCascade = cv2.CascadeClassifier(cascPath)
+DEBUG = True
 
-video_capture = cv2.VideoCapture(0)
+# fire = firebase.FirebaseApplication('https://intelligent-cam.firebaseio.com/', None)
+fire = firebase.FirebaseApplication('https://intelligentcam-90d8f.firebaseio.com/', None)
+cascadePath = "haarcascade_frontalface_default.xml"
+eyes_cascadesPath = "haarcascade_eye.xml"
 
-while True:
-    # Capture frame-by-frame
-    ret, frame = video_capture.read()
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+def get_time():
+    if DEBUG: print("time !!")
+    time_hhmmss = time.strftime('%H:%M:%S')
+    date_ddmmyyyy = time.strftime('%m/%d/%Y')
+    return time_hhmmss, date_ddmmyyyy
 
-    faces = faceCascade.detectMultiScale(
-        gray,
-        scaleFactor=1.3,
-        minNeighbors=5,
-        minSize=(50, 50)
 
-    )
+def get_data():
+    if DEBUG: print("time !!")
+    result = fire.get('/toto', None)
+    print("get_data : " + str(result))
 
-    # Draw a rectangle around the faces
+
+def send_data(i):
+    time_hhmmss, date_ddmmyyyy = get_time()
+
+    # data = str(i) + ',' + str(time_hhmmss) + ',' + str(date_ddmmyyyy)
+
+    data = {'message': i, 'date': date_ddmmyyyy, 'time': time_hhmmss}
+
+    res = fire.post('/toto', data)
+
+    if DEBUG: print("send_data : " + str(res))
+
+
+def detectface(image_capted):
+    # creation du detecteur de visage
+    faceCascade = cv2.CascadeClassifier(cascadePath)
+    eye_cascade = cv2.CascadeClassifier(eyes_cascadesPath)
+    # on enrengistre dans faces les differents visages
+    faces = faceCascade.detectMultiScale(image_capted, scaleFactor=1.3, minNeighbors=5,
+                                         minSize=(30, 30))
+    # on sauvegarde la liste des boites couvrant les visages
+    # rects = [(int(x), int(y), int(x + w), int(y + h)) for (x, y, w, h) in faces]
     for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-        roi_gray = gray[y:y + h, x:x + w]
-        roi_color = frame[y:y + h, x:x + w]
+        cv2.rectangle(image_capted, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        roi = image_capted[y:y + h, x:x + w]
 
-    # Display the resulting frame
-    cv2.imshow('Video', frame)
+        eyes = eye_cascade.detectMultiScale(roi)
+        for (ex, ey, ew, eh) in eyes:
+            cv2.rectangle(roi, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
+    # cv2.imshow('img', image_capted)
+    #cv2.waitKey(0)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    if (len(faces) != 0):
+        return True
+    return False
 
-# When everything is done, release the capture
-video_capture.release()
-cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    i = "visage detecte !!"
+    # capture de la video
+    cap = cv2.VideoCapture(0)
+
+    # Boucle infini
+
+    while True:
+
+        # capture image par image
+        ret, im = cap.read()
+
+        gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+
+        if (detectface(gray)):
+            try:
+                send_data(i)
+
+                if DEBUG: get_data()
+
+            except IOError:
+                print('Error! Something went wrong')
+            print("face detected now entering sleep mode for 3 minutes")
+            time.sleep(180)
