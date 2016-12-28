@@ -1,3 +1,5 @@
+# coding: utf8
+
 """
 https://intelligent-cam.firebaseio.com/
 """
@@ -7,10 +9,13 @@ import time
 import cv2
 from firebase import firebase
 
+# si false plus de printing
 DEBUG = True
 
-# fire = firebase.FirebaseApplication('https://intelligent-cam.firebaseio.com/', None)
+# nom de la base de donné publique lié à l'application (à changé par votre propre bd)
 fire = firebase.FirebaseApplication('https://intelligentcam-90d8f.firebaseio.com/', None)
+
+# les xml de qui serve a la detection du visage ainsi que celle des yeux
 cascadePath = "haarcascade_frontalface_default.xml"
 eyes_cascadesPath = "haarcascade_eye.xml"
 
@@ -22,6 +27,7 @@ def get_time():
     return time_hhmmss, date_ddmmyyyy
 
 
+# pour lire la nouvelles entré dans la base (surtout pour les tests )
 def get_data():
     if DEBUG: print("time !!")
     result = fire.get('/toto', None)
@@ -47,19 +53,25 @@ def detectface(image_capted):
     # on enrengistre dans faces les differents visages
     faces = faceCascade.detectMultiScale(image_capted, scaleFactor=1.3, minNeighbors=5,
                                          minSize=(30, 30))
-    # on sauvegarde la liste des boites couvrant les visages
+    # si  on veut sauvegarder la liste des boites couvrant les visages
     # rects = [(int(x), int(y), int(x + w), int(y + h)) for (x, y, w, h) in faces]
+
+    #on boucle sur les boites couvrants les visages
     for (x, y, w, h) in faces:
+        #dessin du contours
         cv2.rectangle(image_capted, (x, y), (x + w, y + h), (255, 0, 0), 2)
         roi = image_capted[y:y + h, x:x + w]
-
+        # boucles sur les boites des yeux
         eyes = eye_cascade.detectMultiScale(roi)
         for (ex, ey, ew, eh) in eyes:
             cv2.rectangle(roi, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
-    # cv2.imshow('img', image_capted)
-    #cv2.waitKey(0)
+    # pour affichage de l'images + dessins
+    # if DEBUG : cv2.imshow('img', image_capted)
+    # on attends a l'infinie (boucle infinie en quelque sortes)
+    #if DEBUG : cv2.waitKey(20)
 
-    if (len(faces) != 0):
+    # si visage detecter on retourne true
+    if len(faces) != 0:
         return True
     return False
 
