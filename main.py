@@ -8,9 +8,11 @@ import time
 
 import cv2
 from firebase import firebase
+import json
+import numpy
 
 # si false plus de printing
-DEBUG = True
+DEBUG = False
 
 # nom de la base de donné publique lié à l'application (à changé par votre propre bd)
 fire = firebase.FirebaseApplication('https://intelligentcam-90d8f.firebaseio.com/', None)
@@ -34,16 +36,23 @@ def get_data():
     print("get_data : " + str(result))
 
 
-def send_data(i):
+def send_data(message,img):
+
     time_hhmmss, date_ddmmyyyy = get_time()
 
-    # data = str(i) + ',' + str(time_hhmmss) + ',' + str(date_ddmmyyyy)
+    cv2.imwrite('tmp.jpg',img)
+    data_t = cv2.imread('tmp.jpg')
 
-    data = {'message': i, 'date': date_ddmmyyyy, 'time': time_hhmmss}
+
+
+    data = {'message': message, 'date': date_ddmmyyyy, 'time': time_hhmmss, 'image': numpy.array_str(data_t)}
+
+
+    #data = json.dumps(data)
 
     res = fire.post('/toto', data)
-
-    if DEBUG: print("send_data : " + str(res))
+    if DEBUG: print("send_data")
+    # if DEBUG: print("send_data : " + str(res))
 
 
 def detectface(image_capted):
@@ -66,9 +75,9 @@ def detectface(image_capted):
         for (ex, ey, ew, eh) in eyes:
             cv2.rectangle(roi, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
     # pour affichage de l'images + dessins
-    # if DEBUG : cv2.imshow('img', image_capted)
+    #if DEBUG : cv2.imshow('img', image_capted)
     # on attends a l'infinie (boucle infinie en quelque sortes)
-    #if DEBUG : cv2.waitKey(20)
+    if DEBUG : cv2.waitKey(20)
 
     # si visage detecter on retourne true
     if len(faces) != 0:
@@ -92,7 +101,7 @@ if __name__ == '__main__':
 
         if (detectface(gray)):
             try:
-                send_data(i)
+                send_data(i,gray)
 
                 if DEBUG: get_data()
 
