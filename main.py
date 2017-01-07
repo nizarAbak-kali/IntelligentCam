@@ -7,9 +7,8 @@ https://intelligent-cam.firebaseio.com/
 import time
 
 import cv2
-from firebase import firebase
-import json
 import numpy
+from firebase import firebase
 
 # si false plus de printing
 DEBUG = False
@@ -108,4 +107,4 @@ if __name__ == '__main__':
             except IOError:
                 print('Error! Something went wrong')
             print("face detected now entering sleep mode for 3 minutes")
-            time.sleep(180)
+            time.sleep(10)
