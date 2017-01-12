@@ -7,104 +7,32 @@ https://intelligent-cam.firebaseio.com/
 import time
 
 import cv2
-import numpy
-from firebase import firebase
 
-# si false plus de printing
-DEBUG = False
+from FaceDetector import FaceDetector
+from FirebaseClass import FirebaseClass
 
-# nom de la base de donné publique lié à l'application (à changé par votre propre bd)
-fire = firebase.FirebaseApplication('https://intelligentcam-90d8f.firebaseio.com/', None)
-
-# les xml de qui serve a la detection du visage ainsi que celle des yeux
-cascadePath = "haarcascade_frontalface_default.xml"
-eyes_cascadesPath = "haarcascade_eye.xml"
-
-
-def get_time():
-    if DEBUG: print("time !!")
-    time_hhmmss = time.strftime('%H:%M:%S')
-    date_ddmmyyyy = time.strftime('%m/%d/%Y')
-    return time_hhmmss, date_ddmmyyyy
-
-
-# pour lire la nouvelles entré dans la base (surtout pour les tests )
-def get_data():
-    if DEBUG: print("time !!")
-    result = fire.get('/toto', None)
-    print("get_data : " + str(result))
-
-
-def send_data(message,img):
-
-    time_hhmmss, date_ddmmyyyy = get_time()
-
-    cv2.imwrite('tmp.jpg',img)
-    data_t = cv2.imread('tmp.jpg')
-
-
-
-    data = {'message': message, 'date': date_ddmmyyyy, 'time': time_hhmmss, 'image': numpy.array_str(data_t)}
-
-
-    #data = json.dumps(data)
-
-    res = fire.post('/toto', data)
-    if DEBUG: print("send_data")
-    # if DEBUG: print("send_data : " + str(res))
-
-
-def detectface(image_capted):
-    # creation du detecteur de visage
-    faceCascade = cv2.CascadeClassifier(cascadePath)
-    eye_cascade = cv2.CascadeClassifier(eyes_cascadesPath)
-    # on enrengistre dans faces les differents visages
-    faces = faceCascade.detectMultiScale(image_capted, scaleFactor=1.3, minNeighbors=5,
-                                         minSize=(30, 30))
-    # si  on veut sauvegarder la liste des boites couvrant les visages
-    # rects = [(int(x), int(y), int(x + w), int(y + h)) for (x, y, w, h) in faces]
-
-    #on boucle sur les boites couvrants les visages
-    for (x, y, w, h) in faces:
-        #dessin du contours
-        cv2.rectangle(image_capted, (x, y), (x + w, y + h), (255, 0, 0), 2)
-        roi = image_capted[y:y + h, x:x + w]
-        # boucles sur les boites des yeux
-        eyes = eye_cascade.detectMultiScale(roi)
-        for (ex, ey, ew, eh) in eyes:
-            cv2.rectangle(roi, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
-    # pour affichage de l'images + dessins
-    #if DEBUG : cv2.imshow('img', image_capted)
-    # on attends a l'infinie (boucle infinie en quelque sortes)
-    if DEBUG : cv2.waitKey(20)
-
-    # si visage detecter on retourne true
-    if len(faces) != 0:
-        return True
-    return False
-
+time_beetween_detection = 180
 
 if __name__ == '__main__':
     i = "visage detecte !!"
     # capture de la video
     cap = cv2.VideoCapture(0)
 
+    firebaseclass = FirebaseClass('https://intelligentcam-90d8f.firebaseio.com/', '/toto')
+    facedetector = FaceDetector("haarcascade_frontalface_default.xml")
+
+
     # Boucle infini
-
     while True:
-
-        # capture image par image
         ret, im = cap.read()
-
         gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-
-        if (detectface(gray)):
+        if (facedetector.detectface(gray)):
             try:
-                send_data(i,gray)
+                bool, ids = facedetector.recognizeface()
 
-                if DEBUG: get_data()
-
+                for id in ids:
+                    firebaseclass.send_data(id, gray)
             except IOError:
                 print('Error! Something went wrong')
             print("face detected now entering sleep mode for 3 minutes")
-            time.sleep(10)
+            time.sleep(time_beetween_detection)
