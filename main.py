@@ -28,10 +28,11 @@ if __name__ == '__main__':
         gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
         if (facedetector.detectface(gray)):
             try:
-                bool, ids = facedetector.recognizeface()
+                # bool, ids = facedetector.recognizeface()
 
-                for id in ids:
-                    firebaseclass.send_data(id, gray)
+                # for id in ids:
+                #    firebaseclass.send_data(id, gray)
+                firebaseclass.send_data(i, gray)
             except IOError:
                 print('Error! Something went wrong')
             print("face detected now entering sleep mode for 3 minutes")
